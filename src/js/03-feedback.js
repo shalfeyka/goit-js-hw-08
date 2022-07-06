@@ -1,8 +1,6 @@
 import '../css/03-feedback.css'
 import throttle from "lodash.throttle";
 
-
-
 const form = document.querySelector('form');
 form.addEventListener('input', throttle(onInput, 500));
 form.addEventListener('submit', submitFeedBack);
@@ -28,16 +26,19 @@ function ifLocalStorageEmpty() {
 const saveData = JSON.parse(localStorage.getItem(storageKey));
 
 if (saveData) {
-    feedBackForm.email.value = saveData.email;
-    feedBackForm.message.value = saveData.message;
+    form.email.value = saveData.email;
+    form.message.value = saveData.message;
     }
 }
 
 function submitFeedBack(evt) {
     evt.preventDefault();
-    const formEmpty = feedBackForm.email.value === "" || feedBackForm.message.value === ""
+    const formEmpty = form.email.value === "" || form.message.value === ""
     
     if(formEmpty){         
         return;     
     }  
+    console.log(formData);
+    evt.currentTarget.reset();
+    localStorage.removeItem(storageKey);
 }
